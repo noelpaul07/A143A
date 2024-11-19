@@ -6,10 +6,11 @@ library(ggpubr)
 
 data <- read_csv("GooglePlayStoreApps.csv")
 
-#summary,data cleaning and standerdization
+#summary
 data
 summary(data)
 
+#check the missing values
 missing_values <- colSums(is.na(data))
 print(missing_values)
 
@@ -19,8 +20,30 @@ data <- data %>%
          Size_in_MB = as.numeric(Size_in_MB))
 summary(data)
 
+#standerdize rating
 data$Rating_std <- scale(data$Rating)
 summary(data$Rating_std)
+
+#mean rating by type
+mean_ratings <- data %>%
+  group_by(Type) %>%
+  summarise(mean_rating = mean(Rating, na.rm = TRUE),
+            sd = sd(Rating, na.rm = TRUE),
+            count = n())
+print(mean_ratings)
+
+summary(data$Rating_std)
+summary(data$Rating)
+
+
+
+
+#VISUALISATION--
+
+
+
+hist(data$Rating)
+hist(data$Rating_std)
 
 #histogram with a KDE curve for the raw Rating values
 hist(data$Rating, 
@@ -46,15 +69,6 @@ lines(density(data$Rating_std, na.rm = TRUE),
       col = "blue", 
       lwd = 2)
 
-#mean rating by type
-mean_ratings <- data %>%
-  group_by(Type) %>%
-  summarise(mean_rating = mean(Rating, na.rm = TRUE),
-            sd = sd(Rating, na.rm = TRUE),
-            count = n())
-print(mean_ratings)
-
-#VISUALISATION
 
 #Visualize ratings with histograms
 ggplot(data, aes(x = Rating, fill = Type)) +
@@ -74,8 +88,6 @@ ggplot(data, aes(x = Type, y = Rating_std, fill = Type)) +
   labs(title = "Boxplot of Standerdized Ratings by App Type", x = "Type", y = "Rating") +
   theme_minimal()
 
-summary(data$Rating_std)
-summary(data$Rating)
 
 
 #plotting raw rating alone
