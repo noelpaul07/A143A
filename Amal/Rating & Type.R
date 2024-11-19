@@ -54,3 +54,85 @@ mean_ratings <- data %>%
             count = n())
 print(mean_ratings)
 
+#VISUALISATION
+
+#Visualize ratings with histograms
+ggplot(data, aes(x = Rating, fill = Type)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+  labs(title = "Histogram of App Ratings by Type", x = "Rating", y = "Count") +
+  theme_minimal()
+
+#Boxplot for Ratings by Type
+ggplot(data, aes(x = Type, y = Rating, fill = Type)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Ratings by App Type", x = "Type", y = "Rating") +
+  theme_minimal()
+
+#Boxplot for Standerdized Ratings by Type
+ggplot(data, aes(x = Type, y = Rating_std, fill = Type)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Standerdized Ratings by App Type", x = "Type", y = "Rating") +
+  theme_minimal()
+
+summary(data$Rating_std)
+summary(data$Rating)
+
+
+#plotting raw rating alone
+ggplot(data, aes(x = Rating)) +
+  geom_histogram(bins = 30, fill = "lightblue", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Raw Ratings",
+    x = "Rating",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+#plotting standardized rating alone
+ggplot(data, aes(x = Rating_std)) +
+  geom_histogram(bins = 30, fill = "lightgreen", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Standardized Ratings",
+    x = "Standardized Rating",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+#density plot of standardized rating
+ggplot(data, aes(x = Rating_std)) +
+  geom_density(fill = "lightgreen", color = "darkgreen", alpha = 0.7) +
+  labs(
+    title = "Density Plot of Standardized Ratings",
+    x = "Standardized Rating",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+#plotting second variable - Type
+ggplot(data, aes(x = Type, fill = Type)) +
+  geom_bar() +
+  labs(
+    title = "Count of Free and Paid Apps",
+    x = "Type",
+    y = "Count"
+  ) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Free" = "lightblue", "Paid" = "orange"))
+
+#pie-chart
+data %>%
+  count(Type) %>%
+  ggplot(aes(x = "", y = n, fill = Type)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(
+    title = "Proportion of Free and Paid Apps",
+    x = "",
+    y = ""
+  ) +
+  theme_void() +
+  scale_fill_manual(values = c("Free" = "lightblue", "Paid" = "orange"))
+
+
+
+
