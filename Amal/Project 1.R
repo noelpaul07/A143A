@@ -39,6 +39,12 @@ ggplot(data, aes(x = Rating, fill = Type)) +
   labs(title = "Histogram of App Ratings by Type", x = "Rating", y = "Count") +
   theme_minimal()
 
+#visualise mean rating with histograms
+ggplot(mean_ratings, aes(x = Type, y = mean_rating, fill = Type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Mean Ratings by App Type",x = "Type",y = "Mean Rating") +
+  theme_minimal()
+
 #Boxplot for Ratings by Type
 ggplot(data, aes(x = Type, y = Rating, fill = Type)) +
   geom_boxplot() +
