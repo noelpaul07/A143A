@@ -32,15 +32,15 @@ cat('Unique values for Type:', unique_types, '\n')
 
 #Step 4 :Conduct wilcox test
 
-# Assuming your dataset is already loaded and named 'data'
-# Filter data based on the two unique types
+#Assuming your dataset is already loaded and named 'data'
+#Filter data based on the two unique types
 group1 <- data$Rating[data$Type == unique(data$Type)[1]]
 group2 <- data$Rating[data$Type == unique(data$Type)[2]]
 wilcox_test <- wilcox.test(group1, group2)
 cat('Wilcoxon Test Statistic:', wilcox_test$statistic, '\n')
 cat('Wilcoxon Test p-value:', wilcox_test$p.value, '\n')
 
-# Conclusion based on p-value
+#Conclusion based on p-value
 alpha <- 0.05
 if (wilcox_test$p.value < alpha) {
   cat("There is a significant difference in ratings between the two groups (reject H0).\n")
@@ -49,13 +49,13 @@ if (wilcox_test$p.value < alpha) {
 }
 
 
-# Boxplot to show Ratings by Type
+#Boxplot to show Ratings by Type
 ggplot(data, aes(x = Type, y = Rating)) +
   geom_boxplot(outlier.colour = "red", outlier.shape = 16, outlier.size = 2) +
   labs(title = "Boxplot of Ratings by App Type", x = "App Type", y = "Rating") +
   theme_minimal()
 
-# Histogram of Ratings with normal curve overlay
+#Histogram of Ratings with normal curve overlay
 ggplot(data, aes(x = Rating)) +
   geom_histogram(aes(y = ..density..), bins = 20, fill = "blue", alpha = 0.7) +
   stat_function(fun = dnorm, 
@@ -64,4 +64,5 @@ ggplot(data, aes(x = Rating)) +
                 color = "red", size = 1) +
   labs(title = "Histogram of Ratings with Normal Curve", x = "Rating", y = "Density") +
   theme_minimal()
+
 
