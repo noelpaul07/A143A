@@ -1,0 +1,19 @@
+library(ggplot2)
+#Boxplot to show Ratings by Type
+boxplot <- ggplot(data, aes(x = Type, y = Rating)) +
+ geom_boxplot(outlier.colour = "red", outlier.shape = 16, outlier.size = 2) +
+ labs(title = "Boxplot of Ratings by App Type", x = "App Type", y = "Rating") +
+ theme_minimal()
+boxplot
+#Histogram for Free apps
+hist_free <- ggplot(data[data$Type == "Free", ], aes(x = Rating)) +
+ geom_histogram(aes(y = ..density..), bins = 20, fill = "blue",color = "black",
+alpha = 0.7) +
+ stat_function(fun = dnorm,
+ args = list(mean = mean(data[data$Type == "Free", ]$Rating, na.rm =
+TRUE),
+ sd = sd(data[data$Type == "Free", ]$Rating, na.rm = TRUE)),
+ color = "red", size = 1) +
+ labs(title = "Histogram of Ratings for Free Apps", x = "Rating", y = "Density")
++
+ theme_minimal()
