@@ -1,0 +1,7 @@
+1. use the below given command to clone the repository to your desktop folder.
+
+'git clone https://github.com/noelpaul07/A143A.git'
+
+2. To find the no: of commits go to the repository and click on commits on the top right side and filter your username 
+and then count the no: commits.
+
